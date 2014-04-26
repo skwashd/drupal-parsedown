@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * Implements hook_filter_info
+ *
+ * Return the parsedown filter
+ *
+ * @return array
+ */
 function parsedown_filter_info() {
     $filters = array();
 
@@ -13,6 +20,15 @@ function parsedown_filter_info() {
     return $filters;
 }
 
+
+/**
+ * Return the filter tip text depending on the $long value
+ *
+ * @param $filter
+ * @param $format
+ * @param $long
+ * @return mixed
+ */
 function parsedown_filter_tips($filter, $format, $long) {
     if($long) {
         return t('Enter your text with <a href="@markdown">Markdown</a> styling. It will be automatically parsed into HTML and also supports <a href="@gfm">Github Flavoured Markdown</a>', array(
@@ -24,6 +40,40 @@ function parsedown_filter_tips($filter, $format, $long) {
     }
 }
 
+/**
+ * Process the text to filter with 'Parsedown' if it´s available
+ *
+ * @param $text
+ * @param $filter
+ * @param $format
+ * @param $langcode
+ * @param $cache
+ * @param $cache_id
+ * @return string
+ */
 function parsedown_filter_process($text, $filter, $format, $langcode, $cache, $cache_id) {
-    return $text;
+    if(_parsedown_require_parsedown()) {
+        $Parsedown = new Parsedown();
+        return $Parsedown->text($text);
+    } else {
+        return $text;
+    }
+}
+
+/**
+ * Check if the class file exists
+ *
+ * @return bool
+ */
+function _parsedown_class_exists() {
+    return file_exists(drupal_get_path('module', 'parsedown') . '/parsedown/Parsedown.php');
+}
+
+/**
+ * Include the class file if it exists
+ *
+ * @return bool
+ */
+function _parsedown_require_parsedown() {
+    return _parsedown_class_exists() && require_once drupal_get_path('module', 'parsedown') . '/parsedown/Parsedown.php';
 }
