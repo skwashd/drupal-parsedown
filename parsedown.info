@@ -1,1 +1,3 @@
 name = Parsedown
+core = 7.x
+version = 1.x-dev

@@ -1,0 +1,29 @@
+<?php
+
+function parsedown_filter_info() {
+    $filters = array();
+
+    $filters['parsedown'] = array(
+        'title' => t('Parsedown'),
+        'description' => t('Make more out of your text with markdown.'),
+        'tips callback' => 'parsedown_filter_tips',
+        'process callback' => 'parsedown_filter_process'
+    );
+
+    return $filters;
+}
+
+function parsedown_filter_tips($filter, $format, $long) {
+    if($long) {
+        return t('Enter your text with <a href="@markdown">Markdown</a> styling. It will be automatically parsed into HTML and also supports <a href="@gfm">Github Flavoured Markdown</a>', array(
+            '@markdown' => 'http://daringfireball.net/projects/markdown/syntax',
+            '@gfm' => 'https://help.github.com/articles/github-flavored-markdown'
+        ));
+    } else {
+        return t('Enter your text with Markdown styling.');
+    }
+}
+
+function parsedown_filter_process($text, $filter, $format, $langcode, $cache, $cache_id) {
+    return $text;
+}
