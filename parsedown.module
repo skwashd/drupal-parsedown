@@ -9,8 +9,6 @@
  * Implements hook_filter_info().
  *
  * Return the parsedown filter.
- *
- * @return array The filters array used by drupal.
  */
 function parsedown_filter_info() {
   $filters = array();
@@ -19,7 +17,7 @@ function parsedown_filter_info() {
     'title' => t('Parsedown'),
     'description' => t('Make more out of your text with markdown.'),
     'tips callback' => 'parsedown_filter_tips',
-    'process callback' => 'parsedown_filter_process'
+    'process callback' => 'parsedown_filter_process',
   );
 
   return $filters;
@@ -30,9 +28,14 @@ function parsedown_filter_info() {
  * Return the filter tip text.
  *
  * @param $filter
+ *  - An object representing the filter.
  * @param $format
+ *  - An object representing the text format the filter is contained in.
  * @param $long
- * @return string The filter tip text.
+ *  - Whether this callback should return a short tip to display in a form (FALSE), or whether a more elaborate filter tips should be returned for theme_filter_tips() (TRUE).
+ *
+ * @return string
+ *  - Translated text to display as a tip.
  */
 function parsedown_filter_tips($filter, $format, $long) {
   return t('Enter your text with <a href="@markdown">Markdown</a> styling. It will be automatically parsed into HTML and also supports <a href="@gfm">Github Flavoured Markdown</a>', array(
@@ -45,12 +48,20 @@ function parsedown_filter_tips($filter, $format, $long) {
  * Process the text to filter with 'Parsedown' if it´s available.
  *
  * @param $text
+ *  - The text string to be filtered.
  * @param $filter
+ *  - The filter object containing settings for the given format.
  * @param $format
+ *  - The text format object assigned to the text to be filtered.
  * @param $langcode
+ *  - The language code of the text to be filtered.
  * @param $cache
+ *  - A Boolean indicating whether the filtered text is going to be cached in {cache_filter}.
  * @param $cache_id
- * @return string The processed text.
+ *  - The ID of the filtered text in {cache_filter}, if $cache is TRUE.
+ *
+ * @return string
+ *  - The filtered text.
  */
 function parsedown_filter_process($text, $filter, $format, $langcode, $cache, $cache_id) {
   if(_parsedown_require_parsedown()) {
@@ -64,7 +75,8 @@ function parsedown_filter_process($text, $filter, $format, $langcode, $cache, $c
 /**
  * Check if the class file exists.
  *
- * @return bool TRUE if the file exists.
+ * @return bool
+ *  - TRUE if the file exists.
  */
 function _parsedown_class_exists() {
   return file_exists(drupal_get_path('module', 'parsedown') . '/parsedown/Parsedown.php');
@@ -73,7 +85,8 @@ function _parsedown_class_exists() {
 /**
  * Include the class file if it exists.
  *
- * @return bool TRUE if the file exists and was included.
+ * @return bool
+ *  - TRUE if the file exists and was included.
  */
 function _parsedown_require_parsedown() {
   return _parsedown_class_exists() && require_once drupal_get_path('module', 'parsedown') . '/parsedown/Parsedown.php';
