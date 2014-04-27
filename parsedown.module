@@ -1,11 +1,16 @@
 <?php
 
 /**
- * Implements hook_filter_info
+ * @file
+ * Define functions to create and use the paresdown filter
+ */
+
+/**
+ * Implements hook_filter_info().
  *
- * Return the parsedown filter
+ * Return the parsedown filter.
  *
- * @return array
+ * @return array The filters array used by drupal.
  */
 function parsedown_filter_info() {
     $filters = array();
@@ -22,26 +27,22 @@ function parsedown_filter_info() {
 
 
 /**
- * Return the filter tip text depending on the $long value
+ * Return the filter tip text.
  *
  * @param $filter
  * @param $format
  * @param $long
- * @return mixed
+ * @return string The filter tip text.
  */
 function parsedown_filter_tips($filter, $format, $long) {
-    if($long) {
-        return t('Enter your text with <a href="@markdown">Markdown</a> styling. It will be automatically parsed into HTML and also supports <a href="@gfm">Github Flavoured Markdown</a>', array(
-            '@markdown' => 'http://daringfireball.net/projects/markdown/syntax',
-            '@gfm' => 'https://help.github.com/articles/github-flavored-markdown'
-        ));
-    } else {
-        return t('Enter your text with Markdown styling.');
-    }
+    return t('Enter your text with <a href="@markdown">Markdown</a> styling. It will be automatically parsed into HTML and also supports <a href="@gfm">Github Flavoured Markdown</a>', array(
+        '@markdown' => 'http://daringfireball.net/projects/markdown/syntax',
+        '@gfm' => 'https://help.github.com/articles/github-flavored-markdown'
+    ));
 }
 
 /**
- * Process the text to filter with 'Parsedown' if it´s available
+ * Process the text to filter with 'Parsedown' if it´s available.
  *
  * @param $text
  * @param $filter
@@ -49,7 +50,7 @@ function parsedown_filter_tips($filter, $format, $long) {
  * @param $langcode
  * @param $cache
  * @param $cache_id
- * @return string
+ * @return string The processed text.
  */
 function parsedown_filter_process($text, $filter, $format, $langcode, $cache, $cache_id) {
     if(_parsedown_require_parsedown()) {
@@ -61,18 +62,18 @@ function parsedown_filter_process($text, $filter, $format, $langcode, $cache, $c
 }
 
 /**
- * Check if the class file exists
+ * Check if the class file exists.
  *
- * @return bool
+ * @return bool TRUE if the file exists.
  */
 function _parsedown_class_exists() {
     return file_exists(drupal_get_path('module', 'parsedown') . '/parsedown/Parsedown.php');
 }
 
 /**
- * Include the class file if it exists
+ * Include the class file if it exists.
  *
- * @return bool
+ * @return bool TRUE if the file exists and was included.
  */
 function _parsedown_require_parsedown() {
     return _parsedown_class_exists() && require_once drupal_get_path('module', 'parsedown') . '/parsedown/Parsedown.php';

@@ -1,22 +1,29 @@
 <?php
 
 /**
- * Create the 'Parsedown' format on install
+ * @file
+ * Define install and uninstall hooks
+ */
+
+
+/**
+ * Create the 'Parsedown' format on install.
  */
 function parsedown_install() {
+    $t = get_t();
+
     $format = (object) array();
 
-    $format->name = t('Parsedown');
+    $format->name = $t('Parsedown');
     $format->format = 'parsedown';
 
     $format->status = 1;
 
     $format->filters = array(
         'parsedown' => array(
-            'status' => 1
-        )
+            'status' => 1,
+        ),
     );
-
 
     filter_format_save($format);
 }

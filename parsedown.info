@@ -1,3 +1,5 @@
 name = Parsedown
+description = Use Parsedown to create your HTML Markup
+
 core = 7.x
 version = 1.x-dev
