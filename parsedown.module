@@ -13,16 +13,16 @@
  * @return array The filters array used by drupal.
  */
 function parsedown_filter_info() {
-    $filters = array();
+  $filters = array();
 
-    $filters['parsedown'] = array(
-        'title' => t('Parsedown'),
-        'description' => t('Make more out of your text with markdown.'),
-        'tips callback' => 'parsedown_filter_tips',
-        'process callback' => 'parsedown_filter_process'
-    );
+  $filters['parsedown'] = array(
+    'title' => t('Parsedown'),
+    'description' => t('Make more out of your text with markdown.'),
+    'tips callback' => 'parsedown_filter_tips',
+    'process callback' => 'parsedown_filter_process'
+  );
 
-    return $filters;
+  return $filters;
 }
 
 
@@ -35,10 +35,10 @@ function parsedown_filter_info() {
  * @return string The filter tip text.
  */
 function parsedown_filter_tips($filter, $format, $long) {
-    return t('Enter your text with <a href="@markdown">Markdown</a> styling. It will be automatically parsed into HTML and also supports <a href="@gfm">Github Flavoured Markdown</a>', array(
-        '@markdown' => 'http://daringfireball.net/projects/markdown/syntax',
-        '@gfm' => 'https://help.github.com/articles/github-flavored-markdown'
-    ));
+  return t('Enter your text with <a href="@markdown">Markdown</a> styling. It will be automatically parsed into HTML and also supports <a href="@gfm">Github Flavoured Markdown</a>', array(
+    '@markdown' => 'http://daringfireball.net/projects/markdown/syntax',
+    '@gfm' => 'https://help.github.com/articles/github-flavored-markdown'
+  ));
 }
 
 /**
@@ -53,12 +53,12 @@ function parsedown_filter_tips($filter, $format, $long) {
  * @return string The processed text.
  */
 function parsedown_filter_process($text, $filter, $format, $langcode, $cache, $cache_id) {
-    if(_parsedown_require_parsedown()) {
-        $Parsedown = new Parsedown();
-        return $Parsedown->text($text);
-    } else {
-        return $text;
-    }
+  if(_parsedown_require_parsedown()) {
+    $Parsedown = new Parsedown();
+    return $Parsedown->text($text);
+  } else {
+    return $text;
+  }
 }
 
 /**
@@ -67,7 +67,7 @@ function parsedown_filter_process($text, $filter, $format, $langcode, $cache, $c
  * @return bool TRUE if the file exists.
  */
 function _parsedown_class_exists() {
-    return file_exists(drupal_get_path('module', 'parsedown') . '/parsedown/Parsedown.php');
+  return file_exists(drupal_get_path('module', 'parsedown') . '/parsedown/Parsedown.php');
 }
 
 /**
@@ -76,5 +76,5 @@ function _parsedown_class_exists() {
  * @return bool TRUE if the file exists and was included.
  */
 function _parsedown_require_parsedown() {
-    return _parsedown_class_exists() && require_once drupal_get_path('module', 'parsedown') . '/parsedown/Parsedown.php';
+  return _parsedown_class_exists() && require_once drupal_get_path('module', 'parsedown') . '/parsedown/Parsedown.php';
 }
