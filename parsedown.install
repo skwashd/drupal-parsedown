@@ -27,3 +27,26 @@ function parsedown_install() {
 
   filter_format_save($format);
 }
+
+
+/**
+ * Implement hook_requirements.
+ *
+ * @param $phase
+ *
+ * @return array
+ */
+function parsedown_requirements($phase) {
+  $parsedown_library = libraries_detect('parsedown');
+  $t = get_t();
+
+  switch($phase) {
+    case 'runtime':
+      return array('parsedown' => array(
+        'title' => 'Parsedown',
+        'value' => $parsedown_library['installed'] ? $t('Installed') : $t('Not found'),
+        'description' => $parsedown_library['installed'] ? null : $t('Parsedown library should be placed in <em>sites/all/libraries/parsedown/Parsedown.php</em>'),
+        'severity' => $parsedown_library['installed'] ? REQUIREMENT_OK : REQUIREMENT_WARNING,
+      ));
+  }
+}
