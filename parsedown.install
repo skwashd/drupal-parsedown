@@ -31,12 +31,6 @@ function parsedown_install() {
 
 /**
  * Implements hook_requirements().
- *
- * @param string $phase
- *   The phase in which requirements are checked.
- *
- * @return array
- *   Returns if the library is installed or not
  */
 function parsedown_requirements($phase) {
   $parsedown_library = libraries_detect('parsedown');
