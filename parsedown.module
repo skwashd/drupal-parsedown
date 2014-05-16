@@ -92,20 +92,26 @@ function _parsedown_class_exists() {
   return $parsedown_library['loaded'];
 }
 
-
-function parsedown_libraries_info()
-{
-  return array('parsedown' => array(
-    'name' => 'Parsedown',
-    'vendor url' => 'http://parsedown.org/',
-    'download url' => 'https://github.com/erusev/parsedown/archive/master.zip',
-    'files' => array(
-      'php' => array('Parsedown.php'),
+/**
+ * Implements hook_libraries_info().
+ *
+ * @return array
+ *   Return the parsedown library
+ */
+function parsedown_libraries_info() {
+  return array(
+    'parsedown' => array(
+      'name' => 'Parsedown',
+      'vendor url' => 'http://parsedown.org/',
+      'download url' => 'https://github.com/erusev/parsedown/archive/master.zip',
+      'files' => array(
+        'php' => array('Parsedown.php'),
+      ),
+      'version arguments' => array(
+        'file' => 'Parsedown.php',
+        'pattern' => '@\# (Parsedown)@',
+        'lines' => 6,
+      ),
     ),
-    'version arguments' => array(
-      'file' => 'Parsedown.php',
-      'pattern' => '@\# (Parsedown)@',
-      'lines' => 6,
-    ),
-  ));
+  );
 }
