@@ -94,9 +94,6 @@ function _parsedown_class_exists() {
 
 /**
  * Implements hook_libraries_info().
- *
- * @return array
- *   Return the parsedown library
  */
 function parsedown_libraries_info() {
   return array(

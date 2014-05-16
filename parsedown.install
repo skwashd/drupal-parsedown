@@ -30,7 +30,7 @@ function parsedown_install() {
 
 
 /**
- * Implement hook_requirements().
+ * Implements hook_requirements().
  *
  * @param string $phase
  *   The phase in which requirements are checked.
