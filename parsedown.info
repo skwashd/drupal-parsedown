@@ -3,4 +3,4 @@ description = Use Parsedown to create your HTML Markup
 
 core = 7.x
 
-dependencies[] = libraries
+dependencies[] = composer_manager

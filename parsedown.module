@@ -71,44 +71,6 @@ function parsedown_filter_tips($filter, $format, $long) {
  *   The filtered text.
  */
 function parsedown_filter_process($text, $filter, $format, $langcode, $cache, $cache_id) {
-  if (_parsedown_class_exists()) {
-    $parsedown = new Parsedown();
-    return $parsedown->text($text);
-  }
-  else {
-    return $text;
-  }
-}
-
-/**
- * Check if the class file exists.
- *
- * @return bool
- *   TRUE if the file exists.
- */
-function _parsedown_class_exists() {
-  $parsedown_library = libraries_load('parsedown');
-
-  return $parsedown_library['loaded'];
-}
-
-/**
- * Implements hook_libraries_info().
- */
-function parsedown_libraries_info() {
-  return array(
-    'parsedown' => array(
-      'name' => 'Parsedown',
-      'vendor url' => 'http://parsedown.org/',
-      'download url' => 'https://github.com/erusev/parsedown/archive/master.zip',
-      'files' => array(
-        'php' => array('Parsedown.php'),
-      ),
-      'version arguments' => array(
-        'file' => 'Parsedown.php',
-        'pattern' => '@\# (Parsedown)@',
-        'lines' => 6,
-      ),
-    ),
-  );
+  $parsedown = new Parsedown();
+  return $parsedown->text($text);
 }
